@@ -5,7 +5,7 @@
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{9670E2FA-9380-4DCB-AD08-DA74A3D36673}</ProjectGuid>
-        <OutputType>Exe</OutputType>
+        <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>NeonLogger</RootNamespace>
         <AssemblyName>NeonLogger</AssemblyName>
@@ -39,7 +39,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="NeonLogger.cs" />
-        <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
