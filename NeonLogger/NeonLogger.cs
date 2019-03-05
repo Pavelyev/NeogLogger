@@ -36,7 +36,6 @@ namespace NeonLogger
         }
 
         public void LogDeffered(string message)
-
         {
             if (_queue.Count > 10000)
             {
