@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace NeonLogger
 {
@@ -23,7 +24,7 @@ namespace NeonLogger
 
             lock (_lock)
             {
-                File.AppendAllText(_filePath, message);
+                File.AppendAllText(_filePath, message + "\n");
             }
         }
 
@@ -35,7 +36,7 @@ namespace NeonLogger
                 .ToArray();
         }
 
-        public void LogDeffered(string message)
+        public void LogDeferred(string message)
         {
             if (_queue.Count > 10000)
             {
@@ -45,16 +46,11 @@ namespace NeonLogger
             _queue.Enqueue(message);
         }
 
-        public void Run()
+        public void Flush()
         {
-            while (true)
+            while (_queue.TryDequeue(out var message))
             {
-                while (_queue.TryDequeue(out var message))
-                {
-                    Log(message);
-                }
-
-                Thread.SpinWait(1);
+                Log(message);
             }
         }
 
