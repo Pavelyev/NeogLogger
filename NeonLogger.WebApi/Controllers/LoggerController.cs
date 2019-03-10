@@ -18,6 +18,12 @@ namespace NeonLogger.WebApi.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public IActionResult Popular()
+        {
+            return Ok(_logger.PopularMessages());
+        }
+
         public IActionResult Test()
         {
             return Ok("OK");
