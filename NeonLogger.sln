@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeonLogger.Tests", "NeonLog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeonLogger.WebApi", "NeonLogger.WebApi\NeonLogger.WebApi.csproj", "{6E9A83F9-1872-421C-8E8A-411C962EBE42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeonLogger.TestClient", "NeonLogger.TestClient\NeonLogger.TestClient.csproj", "{C49893B0-A3BC-4F6A-91DD-67134D42CBE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6E9A83F9-1872-421C-8E8A-411C962EBE42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E9A83F9-1872-421C-8E8A-411C962EBE42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E9A83F9-1872-421C-8E8A-411C962EBE42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C49893B0-A3BC-4F6A-91DD-67134D42CBE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C49893B0-A3BC-4F6A-91DD-67134D42CBE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C49893B0-A3BC-4F6A-91DD-67134D42CBE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C49893B0-A3BC-4F6A-91DD-67134D42CBE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
