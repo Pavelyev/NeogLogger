@@ -12,20 +12,13 @@ namespace NeonLogger
             RealLog(message, true);
         }
 
-        public string[] PopularMessages()
-        {
-            return _dict.OrderByDescending(x => x.Value)
-                .Take(10)
-                .Select(x => x.Key)
-                .ToArray();
-        }
-
         public void LogDeferred(string message)
         {
             if (_queue.Count > 10000)
             {
                 return;
             }
+
             _queue.Enqueue(message);
         }
 
@@ -38,6 +31,14 @@ namespace NeonLogger
                     RealLog(message, withLock: false);
                 }
             }
+        }
+
+        public string[] PopularMessages()
+        {
+            return _dict.OrderByDescending(x => x.Value)
+                .Take(10)
+                .Select(x => x.Key)
+                .ToArray();
         }
 
         private void RealLog(string message, bool withLock)
