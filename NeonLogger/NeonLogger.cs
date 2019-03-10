@@ -1,17 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NeonLogger
 {
     public class NeonLogger
     {
-        public void Log(string message)
+        public void Log(string message, bool withLock = true)
         {
             if (_dict.ContainsKey(message))
             {
@@ -22,10 +18,17 @@ namespace NeonLogger
                 _dict[message] = 1;
             }
 
-            lock (_lock)
+            if (withLock)
             {
-                File.AppendAllText(_filePath, message + "\n");
+                lock (_lock)
+                {
+                    File.AppendAllText(_filePath, message + "\n");
+                }
+
+                return;
             }
+
+            File.AppendAllText(_filePath, message + "\n");
         }
 
         public string[] PopularMessages()
@@ -48,9 +51,12 @@ namespace NeonLogger
 
         public void Flush()
         {
-            while (_queue.TryDequeue(out var message))
+            lock (_lock)
             {
-                Log(message);
+                while (_queue.TryDequeue(out var message))
+                {
+                    Log(message, withLock: false);
+                }
             }
         }
 
