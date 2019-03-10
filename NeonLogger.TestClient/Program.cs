@@ -11,13 +11,13 @@ namespace NeonLogger.TestClient
                 .Select(x => new NeonLoggerTestClient("http://localhost:5000"));
             var tasks = clients.Select(client =>
             {
-                return Task.Factory.StartNew(x =>
+                return Task.Factory.StartNew(() =>
                 {
                     while (true)
                     {
                         client.LogDeferredRandomMessage().Wait();
                     }
-                }, TaskCreationOptions.LongRunning);
+                });
             });
             Task.WaitAll(tasks.ToArray());
         }
