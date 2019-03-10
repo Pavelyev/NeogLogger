@@ -14,4 +14,20 @@
       <ProjectReference Include="..\NeonLogger\NeonLogger.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Log\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Log\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Log\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Log\**" />
+    </ItemGroup>
+
 </Project>

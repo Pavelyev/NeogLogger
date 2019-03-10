@@ -64,7 +64,18 @@ namespace NeonLogger
 
         public NeonLogger(string filePath)
         {
+            if (String.IsNullOrEmpty(filePath))
+                throw new ArgumentException("prodive filePath", nameof(filePath));
+
             _filePath = filePath;
+
+            var directoryName = Path.GetDirectoryName(filePath);
+
+            if (String.IsNullOrEmpty(directoryName))
+                return;
+
+            if (!Directory.Exists(directoryName))
+                Directory.CreateDirectory(directoryName);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -26,6 +27,6 @@ namespace NeonLogger.WebApi
 
     public static class LoggerHolder
     {
-        public static readonly NeonLogger Logger = new NeonLogger("log.txt");
+        public static readonly NeonLogger Logger = new NeonLogger(Path.Combine("Log", "log.txt"));
     }
 }

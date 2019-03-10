@@ -24,12 +24,6 @@ namespace NeonLogger.WebApi.Controllers
             return Ok(_logger.PopularMessages());
         }
 
-        public IActionResult Test()
-        {
-            return Ok("OK");
-        }
-        
-
         private readonly NeonLogger _logger;
 
         public LoggerController(NeonLogger logger)
