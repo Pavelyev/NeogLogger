@@ -8,7 +8,7 @@ namespace NeonLogger.TestClient
         static async Task Main(string[] args)
         {
             var clients = Enumerable.Range(1, 4)
-                .Select(x => new NeonLoggerWebClient("http://localhost:5000")).ToList();
+                .Select(x => new NeonLoggerTestClient("http://localhost:5000"));
             var tasks = clients.Select(client =>
             {
                 return Task.Factory.StartNew(x =>
@@ -18,8 +18,8 @@ namespace NeonLogger.TestClient
                         client.LogDeferredRandomMessage().Wait();
                     }
                 }, TaskCreationOptions.LongRunning);
-            }).ToArray();
-            Task.WaitAll(tasks);
+            });
+            Task.WaitAll(tasks.ToArray());
         }
     }
 }

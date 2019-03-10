@@ -141,5 +141,66 @@ namespace NeonLogger.Tests
             Assert.IsFalse(popular.Contains("kernel"));
             Assert.IsFalse(popular.Contains("lance"));
         }
+
+        [Test]
+        public void Test_PopularMessages_DifferentTimesLoggedDeferred()
+        {
+            var logger = new NeonLogger("log.txt");
+
+            logger.LogDeferred("apple");
+
+            logger.LogDeferred("banana");
+            logger.LogDeferred("banana");
+            logger.Flush();
+
+            var popular = logger.PopularMessages();
+            Assert.IsTrue(popular.Contains("apple"));
+            Assert.IsTrue(popular.Contains("banana"));
+            Assert.IsFalse(popular.Contains("pek"));
+        }
+
+        [Test]
+        public void Test_PopularMessages_TenLoggedTwiceAndTwoLoggedOnceDefered()
+        {
+            var logger = new NeonLogger("log.txt");
+
+            logger.LogDeferred("apple");
+            logger.LogDeferred("apple");
+            logger.LogDeferred("banana");
+            logger.LogDeferred("banana");
+            logger.LogDeferred("case");
+            logger.LogDeferred("case");
+            logger.LogDeferred("deer");
+            logger.LogDeferred("deer");
+            logger.LogDeferred("eagle");
+            logger.LogDeferred("eagle");
+            logger.LogDeferred("fever");
+            logger.LogDeferred("fever");
+            logger.LogDeferred("gem");
+            logger.LogDeferred("gem");
+            logger.LogDeferred("hat");
+            logger.LogDeferred("hat");
+            logger.LogDeferred("idol");
+            logger.LogDeferred("idol");
+            logger.LogDeferred("jeep");
+            logger.LogDeferred("jeep");
+            logger.LogDeferred("kernel");
+            logger.LogDeferred("lance");
+            logger.Flush();
+
+            var popular = logger.PopularMessages();
+            Assert.IsTrue(popular.Contains("apple"));
+            Assert.IsTrue(popular.Contains("banana"));
+            Assert.IsTrue(popular.Contains("case"));
+            Assert.IsTrue(popular.Contains("deer"));
+            Assert.IsTrue(popular.Contains("eagle"));
+            Assert.IsTrue(popular.Contains("fever"));
+            Assert.IsTrue(popular.Contains("gem"));
+            Assert.IsTrue(popular.Contains("hat"));
+            Assert.IsTrue(popular.Contains("idol"));
+            Assert.IsTrue(popular.Contains("jeep"));
+            Assert.IsFalse(popular.Contains("kernel"));
+            Assert.IsFalse(popular.Contains("lance"));
+        }
     }
 }
