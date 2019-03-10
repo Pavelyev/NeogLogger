@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace NeonLogger.WebApi
 {
@@ -20,9 +12,8 @@ namespace NeonLogger.WebApi
             {
                 while (true)
                 {
-                    Debug.WriteLine($"calling logger {DateTime.Now.ToLongTimeString()}");
                     LoggerHolder.Logger.Flush();
-                    await Task.Delay(1000);
+                    await Task.Delay(100);
                 }
             });
             CreateWebHostBuilder(args).Build().Run();
