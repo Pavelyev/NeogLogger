@@ -10,11 +10,6 @@ namespace NeonLogger.Tests
         [Test]
         public void Test_Log_WriteToFile()
         {
-            if (File.Exists("log.txt"))
-            {
-                File.Delete("log.txt");
-            }
-
             var logger = new NeonLogger("log.txt");
 
             logger.Log("apple");
@@ -28,11 +23,6 @@ namespace NeonLogger.Tests
         [Test]
         public void Test_LogDeferred_NotWriteUntilFlush()
         {
-            if (File.Exists("log.txt"))
-            {
-                File.Delete("log.txt");
-            }
-
             var logger = new NeonLogger("log.txt");
 
             logger.LogDeferred("apple");
@@ -44,11 +34,6 @@ namespace NeonLogger.Tests
         [Test]
         public void Test_LogDeferred_WriteToFile()
         {
-            if (File.Exists("log.txt"))
-            {
-                File.Delete("log.txt");
-            }
-
             var logger = new NeonLogger("log.txt");
 
             logger.LogDeferred("apple");
@@ -63,11 +48,6 @@ namespace NeonLogger.Tests
         [Test]
         public void Test_LogAndLogDeferred_WriteToFile()
         {
-            if (File.Exists("log.txt"))
-            {
-                File.Delete("log.txt");
-            }
-
             var logger = new NeonLogger("log.txt");
 
             logger.LogDeferred("apple");
@@ -201,6 +181,15 @@ namespace NeonLogger.Tests
             Assert.IsTrue(popular.Contains("jeep"));
             Assert.IsFalse(popular.Contains("kernel"));
             Assert.IsFalse(popular.Contains("lance"));
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            if (File.Exists("log.txt"))
+            {
+                File.Delete("log.txt");
+            }
         }
     }
 }
