@@ -7,28 +7,25 @@ namespace NeonLogger
 {
     public class NeonLogger
     {
-        public void Log(string message, bool withLock = true)
+        public void Log(string message)
         {
-            if (_dict.ContainsKey(message))
-            {
-                _dict[message]++;
-            }
-            else
-            {
-                _dict[message] = 1;
-            }
+            _dict.AddOrUpdate(message, 1, (k, v) => v + 1);
+            RealLog(message, true);
+        }
 
+        private void RealLog(string message, bool withLock)
+        {
             if (withLock)
             {
                 lock (_lock)
                 {
                     File.AppendAllText(_filePath, message + "\n");
                 }
-
-                return;
             }
-
-            File.AppendAllText(_filePath, message + "\n");
+            else
+            {
+                File.AppendAllText(_filePath, message + "\n");
+            }
         }
 
         public string[] PopularMessages()
@@ -55,7 +52,7 @@ namespace NeonLogger
             {
                 while (_queue.TryDequeue(out var message))
                 {
-                    Log(message, withLock: false);
+                    RealLog(message, withLock: false);
                 }
             }
         }
