@@ -11,8 +11,7 @@ namespace NeonLogger.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var logger = LoggerHolder.Logger;
-            services.AddSingleton<NeonLogger>(logger);
+            services.AddSingleton(LoggerHolder.Logger);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
