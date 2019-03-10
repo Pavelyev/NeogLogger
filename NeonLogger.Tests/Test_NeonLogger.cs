@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace NeonLogger.Tests
@@ -180,6 +182,23 @@ namespace NeonLogger.Tests
             Assert.True(popular.Contains("jeep"));
             Assert.False(popular.Contains("kernel"));
             Assert.False(popular.Contains("lance"));
+        }
+
+        [Fact]
+        public void Test_LogAndLogDeferred_ParallelWriting()
+        {
+            var logger = new NeonLogger("log.txt");
+
+            var messages = new[] {"apple", "banana", "case", "deer", "eagle"};
+            Parallel.For(0, 100, x =>
+            {
+                var message = messages[x % messages.Length];
+                logger.Log(message);
+                logger.LogDeferred(message);
+            });
+            logger.Flush();
+            
+            Assert.True(File.ReadAllLines("log.txt").Length == 200);
         }
 
         public Test_NeonLogger()
