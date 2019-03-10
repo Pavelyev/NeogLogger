@@ -1,13 +1,12 @@
 using System.IO;
 using System.Linq;
-using NUnit.Framework;
+using Xunit;
 
 namespace NeonLogger.Tests
 {
-    [TestFixture]
     public class Test_NeonLogger
     {
-        [Test]
+        [Fact]
         public void Test_Log_WriteToFile()
         {
             var logger = new NeonLogger("log.txt");
@@ -16,11 +15,11 @@ namespace NeonLogger.Tests
             logger.Log("banana");
 
             var lines = File.ReadAllLines("log.txt").ToArray();
-            Assert.IsTrue(lines[0] == "apple");
-            Assert.IsTrue(lines[1] == "banana");
+            Assert.True(lines[0] == "apple");
+            Assert.True(lines[1] == "banana");
         }
 
-        [Test]
+        [Fact]
         public void Test_LogDeferred_NotWriteUntilFlush()
         {
             var logger = new NeonLogger("log.txt");
@@ -28,10 +27,10 @@ namespace NeonLogger.Tests
             logger.LogDeferred("apple");
             logger.LogDeferred("banana");
 
-            Assert.IsFalse(File.Exists("log.txt"));
+            Assert.False(File.Exists("log.txt"));
         }
 
-        [Test]
+        [Fact]
         public void Test_LogDeferred_WriteToFile()
         {
             var logger = new NeonLogger("log.txt");
@@ -41,11 +40,11 @@ namespace NeonLogger.Tests
             logger.Flush();
 
             var lines = File.ReadAllLines("log.txt").ToArray();
-            Assert.IsTrue(lines[0] == "apple");
-            Assert.IsTrue(lines[1] == "banana");
+            Assert.True(lines[0] == "apple");
+            Assert.True(lines[1] == "banana");
         }
 
-        [Test]
+        [Fact]
         public void Test_LogAndLogDeferred_WriteToFile()
         {
             var logger = new NeonLogger("log.txt");
@@ -57,13 +56,13 @@ namespace NeonLogger.Tests
             logger.Flush();
 
             var lines = File.ReadAllLines("log.txt").ToArray();
-            Assert.IsTrue(lines[0] == "case");
-            Assert.IsTrue(lines[1] == "deer");
-            Assert.IsTrue(lines[2] == "apple");
-            Assert.IsTrue(lines[3] == "banana");
+            Assert.True(lines[0] == "case");
+            Assert.True(lines[1] == "deer");
+            Assert.True(lines[2] == "apple");
+            Assert.True(lines[3] == "banana");
         }
 
-        [Test]
+        [Fact]
         public void Test_PopularMessages_DifferentTimesLogged()
         {
             var logger = new NeonLogger("log.txt");
@@ -74,12 +73,12 @@ namespace NeonLogger.Tests
             logger.Log("banana");
 
             var popular = logger.PopularMessages();
-            Assert.IsTrue(popular.Contains("apple"));
-            Assert.IsTrue(popular.Contains("banana"));
-            Assert.IsFalse(popular.Contains("pek"));
+            Assert.True(popular.Contains("apple"));
+            Assert.True(popular.Contains("banana"));
+            Assert.False(popular.Contains("pek"));
         }
 
-        [Test]
+        [Fact]
         public void Test_PopularMessages_TenLoggedTwiceAndTwoLoggedOnce()
         {
             var logger = new NeonLogger("log.txt");
@@ -108,21 +107,21 @@ namespace NeonLogger.Tests
             logger.Log("lance");
 
             var popular = logger.PopularMessages();
-            Assert.IsTrue(popular.Contains("apple"));
-            Assert.IsTrue(popular.Contains("banana"));
-            Assert.IsTrue(popular.Contains("case"));
-            Assert.IsTrue(popular.Contains("deer"));
-            Assert.IsTrue(popular.Contains("eagle"));
-            Assert.IsTrue(popular.Contains("fever"));
-            Assert.IsTrue(popular.Contains("gem"));
-            Assert.IsTrue(popular.Contains("hat"));
-            Assert.IsTrue(popular.Contains("idol"));
-            Assert.IsTrue(popular.Contains("jeep"));
-            Assert.IsFalse(popular.Contains("kernel"));
-            Assert.IsFalse(popular.Contains("lance"));
+            Assert.True(popular.Contains("apple"));
+            Assert.True(popular.Contains("banana"));
+            Assert.True(popular.Contains("case"));
+            Assert.True(popular.Contains("deer"));
+            Assert.True(popular.Contains("eagle"));
+            Assert.True(popular.Contains("fever"));
+            Assert.True(popular.Contains("gem"));
+            Assert.True(popular.Contains("hat"));
+            Assert.True(popular.Contains("idol"));
+            Assert.True(popular.Contains("jeep"));
+            Assert.False(popular.Contains("kernel"));
+            Assert.False(popular.Contains("lance"));
         }
 
-        [Test]
+        [Fact]
         public void Test_PopularMessages_DifferentTimesLoggedDeferred()
         {
             var logger = new NeonLogger("log.txt");
@@ -134,12 +133,12 @@ namespace NeonLogger.Tests
             logger.Flush();
 
             var popular = logger.PopularMessages();
-            Assert.IsTrue(popular.Contains("apple"));
-            Assert.IsTrue(popular.Contains("banana"));
-            Assert.IsFalse(popular.Contains("pek"));
+            Assert.True(popular.Contains("apple"));
+            Assert.True(popular.Contains("banana"));
+            Assert.False(popular.Contains("pek"));
         }
 
-        [Test]
+        [Fact]
         public void Test_PopularMessages_TenLoggedTwiceAndTwoLoggedOnceDefered()
         {
             var logger = new NeonLogger("log.txt");
@@ -169,22 +168,21 @@ namespace NeonLogger.Tests
             logger.Flush();
 
             var popular = logger.PopularMessages();
-            Assert.IsTrue(popular.Contains("apple"));
-            Assert.IsTrue(popular.Contains("banana"));
-            Assert.IsTrue(popular.Contains("case"));
-            Assert.IsTrue(popular.Contains("deer"));
-            Assert.IsTrue(popular.Contains("eagle"));
-            Assert.IsTrue(popular.Contains("fever"));
-            Assert.IsTrue(popular.Contains("gem"));
-            Assert.IsTrue(popular.Contains("hat"));
-            Assert.IsTrue(popular.Contains("idol"));
-            Assert.IsTrue(popular.Contains("jeep"));
-            Assert.IsFalse(popular.Contains("kernel"));
-            Assert.IsFalse(popular.Contains("lance"));
+            Assert.True(popular.Contains("apple"));
+            Assert.True(popular.Contains("banana"));
+            Assert.True(popular.Contains("case"));
+            Assert.True(popular.Contains("deer"));
+            Assert.True(popular.Contains("eagle"));
+            Assert.True(popular.Contains("fever"));
+            Assert.True(popular.Contains("gem"));
+            Assert.True(popular.Contains("hat"));
+            Assert.True(popular.Contains("idol"));
+            Assert.True(popular.Contains("jeep"));
+            Assert.False(popular.Contains("kernel"));
+            Assert.False(popular.Contains("lance"));
         }
 
-        [SetUp]
-        public void Setup()
+        public Test_NeonLogger()
         {
             if (File.Exists("log.txt"))
             {
