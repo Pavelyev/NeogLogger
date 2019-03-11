@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NeonLogger.TestClient
@@ -15,7 +16,14 @@ namespace NeonLogger.TestClient
                 {
                     while (true)
                     {
-                        client.LogDeferredRandomMessage().Wait();
+                        try
+                        {
+                            client.LogDeferredRandomMessage().Wait();
+                        }
+                        catch (Exception exception)
+                        {
+                            Console.WriteLine($"error in webapi\n{exception}");
+                        }
                     }
                 });
             });

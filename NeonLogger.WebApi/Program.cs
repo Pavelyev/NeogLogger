@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +14,15 @@ namespace NeonLogger.WebApi
             {
                 while (true)
                 {
-                    LoggerHolder.Logger.Flush();
+                    try
+                    {
+                        LoggerHolder.Logger.Flush();
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine($"logger can't Flush\n{exception}");
+                    }
+
                     await Task.Delay(100);
                 }
             });
